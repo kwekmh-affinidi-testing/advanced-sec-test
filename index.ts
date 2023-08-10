@@ -18,6 +18,16 @@ app.get('/ping/:ip', (req: Request, res: Response) => {
     })
 })
 
+app.get('/nslookup/:domain', (req: Request, res: Response) => {
+    exec('nslookup ' + req.params['domain'], (err, stdout, stderr) => {
+        if (err) {
+            res.send(stderr);
+        } else {
+            res.send(stdout);
+        }
+    })
+})
+
 app.listen(port, () => {
     console.log(`[server] Server is running at http://localhost:${port}`)
 })
